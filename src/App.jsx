@@ -7,7 +7,7 @@ import { getTrendingMovies, updateSearchCount } from './appwrite.js'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY || import.meta.env.EXPO_PUBLIC_MOVIE_API_KEY;
 
 const API_OPTIONS = {
   method: 'GET',
@@ -34,6 +34,12 @@ const App = () => {
   const fetchMovies = async (query = '') => {
     setIsLoading(true);
     setErrorMessage('');
+
+    if (!API_KEY) {
+      setErrorMessage('TMDB API key is missing. Set VITE_TMDB_API_KEY in .env and restart the dev server.');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const endpoint = query

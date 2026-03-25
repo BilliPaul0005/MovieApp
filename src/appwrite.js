@@ -1,12 +1,13 @@
 import { Client, Databases, ID, Query } from 'appwrite'
 
-const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
-const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID || import.meta.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID || import.meta.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID;
+const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID || import.meta.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID;
+const APPWRITE_ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT || import.meta.env.EXPO_PUBLIC_APPWRITE_ENDPOINT || 'https://fra.cloud.appwrite.io/v1';
 const APPWRITE_CONFIG_READY = Boolean(PROJECT_ID && DATABASE_ID && COLLECTION_ID);
 
 const client = new Client()
-  .setEndpoint('https://fra.cloud.appwrite.io/v1')
+  .setEndpoint(APPWRITE_ENDPOINT)
 
 if (PROJECT_ID) {
   client.setProject(PROJECT_ID)
