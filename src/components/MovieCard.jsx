@@ -1,17 +1,15 @@
 import React from 'react'
 
 const MovieCard = ({ movie:
-  { id, title, vote_average, poster_path, release_date, original_language }
+  { id, title, vote_average, poster_path, release_date, original_language },
+  onCardClick
 }) => {
-  const movieUrl = `https://www.themoviedb.org/movie/${id}`;
-
   return (
-    <a
+    <button
       className="movie-card"
-      href={movieUrl}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`Open ${title} on TMDB`}
+      onClick={() => onCardClick(id)}
+      aria-label={`View details for ${title}`}
+      type="button"
     >
       <img
         src={poster_path ?
@@ -37,7 +35,7 @@ const MovieCard = ({ movie:
           </p>
         </div>
       </div>
-    </a>
+    </button>
   )
 }
 export default MovieCard
